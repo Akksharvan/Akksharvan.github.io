@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
@@ -11,16 +11,12 @@ import Link from "next/link";
 import defaultImg from "@/public/defaultImg.png";
 import { FaGithubSquare } from "react-icons/fa";
 
-import { useInView } from "react-intersection-observer";
+import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 
 export default function Intro() {
-    const { ref, inView} = useInView({threshold: 0.50});
-    const { setActiveSection } = useActiveSectionContext();
-
-    useEffect(() => {
-        if (inView) setActiveSection("Home");
-    }, [inView, setActiveSection]);
+    const ref = useSectionInView("Home", 0.50);
+    const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
 
     return (
         <section ref = { ref } id = "home" className = "mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]">
@@ -81,7 +77,8 @@ export default function Intro() {
                     <Link
                         href = "#contact"
                         className = "group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition cursor-pointer">
-                        Contact Me Here <BsArrowRight className = "opacity-70 group-hover:translate-x-1" />
+                        Contact Me Here <BsArrowRight className = "opacity-70 group-hover:translate-x-1"
+                        onClick = {() => { setActiveSection("Contact"); setTimeOfLastClick(Date.now()); }}/>
                     </Link>
 
                     <a
