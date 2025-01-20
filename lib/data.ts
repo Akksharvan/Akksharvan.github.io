@@ -156,6 +156,8 @@ export const awardsData = [
     issuer: "Panther Creek High School",
     issueDate: "June 2022",
     description: "Awarded to the Top 20 students in the Junior Class based on GPA.",
+    informationURL:
+      "https://example.com/panther-creek-high-school-junior-marshal"
   },
 ] as const;
 
